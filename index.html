@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="Container">
+      <section class="quiz-App">
+        <section class="quiz-details">
+          <h2>Quiz App</h2>
+          <p>
+            This is a Quiz Game , It is a game to test knowledge about your
+            skills in html , In this Quiz App ,there are 10 short question ,
+            Just press on Start button and enjoy !!
+          </p>
+          <form class="username-input">
+            <input type="text" id="userName" placeholder="Enter Your Name .." />
+            <p id="errorMessage"></p>
+          </form>
+          <section class="quiz-btn">
+            <button id="loadleader-btn">LoadLeader</button>
+            <button id="startgame-btn">Start</button>
+          </section>
+        </section>
+      </section>
+
+      <section class="quiz-questions">
+        <section class="question-title">
+          <h3 id="que-title"></h3>
+          <span>(<span id="number-question">1</span> of 10)</span>
+        </section>
+
+        <form class="answers">
+          <section class="radio-item">
+            <input
+              type="radio"
+              class="radio-choice"
+              id="answser1"
+              name="choice"
+              data-number="1"
+            />
+            <label id="ans1" for="answer1"></label>
+          </section>
+
+          <section class="radio-item">
+            <input
+              type="radio"
+              class="radio-choice"
+              id="answer2"
+              name="choice"
+              data-number="2"
+            />
+            <label id="ans2" for="answer2"></label>
+          </section>
+
+          <section class="radio-item">
+            <input
+              type="radio"
+              class="radio-choice"
+              id="answer3"
+              name="choice"
+              data-number="3"
+            />
+            <label id="ans3" for="answer3"></label>
+          </section>
+        </form>
+
+        <section class="next-btn">
+          <button id="next-question-btn">Next</button>
+        </section>
+      </section>
+
+      <section id="leaderboard">
+        <h2>LEADERBORD</h2>
+        <h4>Player_Score</h4>
+        <ul id="scores"></ul>
+      </section>
+    </section>
+
+    <script src="question.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
