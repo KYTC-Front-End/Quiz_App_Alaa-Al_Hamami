@@ -18,13 +18,24 @@ let questionCounter = 0;
 let score = 0;
 
 // Set the question in local Storage
-
 window.localStorage.setItem("data", JSON.stringify(data));
 let questionData = JSON.parse(window.localStorage.getItem("data"));
-//let randomIndex = Math.floor(Math.random() * questionData.length);
+
+// RandomQuestion Funcrion
+
+function randomQue (){
+  let randomQuestion = [];
+  for(let i = 0 ; i< questionData.length ;i++){
+    let randomNum = (Math.floor(Math.random() * (questionData.length)));
+    randomQuestion.push(questionData[randomNum]);
+}
+return randomQuestion;
+ console.log(randomQuestion);
+}
+let random = randomQue();
+console.log(random);
 
 // check leaderBoard in localStorage
-
 let leadBoard = window.localStorage.getItem("leaderBoard");
 if (leadBoard) {
   leadBoard = JSON.parse(leadBoard);
@@ -46,17 +57,15 @@ startBtn.addEventListener("click", function (event) {
 });
 
 // Function GetQuestion
-
 function getQuestion() {
   unCheckedRadioButton();
-  questionTitle.textContent = questionData[questionCounter].question;
-  ans1.textContent = questionData[questionCounter].answers[0];
-  ans2.textContent = questionData[questionCounter].answers[1];
-  ans3.textContent = questionData[questionCounter].answers[2];
+  questionTitle.textContent = random[questionCounter].question;
+  ans1.textContent = random[questionCounter].answers[0];
+  ans2.textContent = random[questionCounter].answers[1];
+  ans3.textContent = random[questionCounter].answers[2];
 }
 
 // Function to unabel of radio Button initially
-
 function unCheckedRadioButton() {
   answersOfQuestion.forEach((item) => (item.checked = false));
 }
@@ -77,14 +86,14 @@ nextBtn.addEventListener("click", (event) => {
   event.preventDefault();
   let answer = selectAnswer();
   console.log(answer);
-  console.log(questionData[questionCounter].correctAnswer);
-  if (answer === questionData[questionCounter].correctAnswer) {
+  console.log(random[questionCounter].correctAnswer);
+  if (answer === random[questionCounter].correctAnswer) {
     score++;
   }
   questionCounter++;
   numberOfQuestion.textContent = `${questionCounter + 1}`;
 
-  if (questionCounter < questionData.length) {
+  if (questionCounter < random.length) {
     getQuestion();
   } else {
     quizAppPage.style.display = "none";
