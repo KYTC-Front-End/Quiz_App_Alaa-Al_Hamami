@@ -17,6 +17,12 @@ let leaderBtn = document.getElementById("loadleader-btn");
 let questionCounter = 0;
 let score = 0;
 
+// Set the question in local Storage
+
+window.localStorage.setItem("data", JSON.stringify(data));
+let questionData = JSON.parse(window.localStorage.getItem("data"));
+//let randomIndex = Math.floor(Math.random() * questionData.length);
+
 // check leaderBoard in localStorage
 
 let leadBoard = window.localStorage.getItem("leaderBoard");
@@ -43,14 +49,10 @@ startBtn.addEventListener("click", function (event) {
 
 function getQuestion() {
   unCheckedRadioButton();
-  window.localStorage.setItem("data", JSON.stringify(data));
-  //let questionData = JSON.parse(window.localStorage.getItem('data'));
-  // window.localStorage.setItem("data",JSON.stringify(questionData));
-  let randomQuestion = Math.floor(Math.random() * data.length);
-  questionTitle.textContent = data[randomQuestion].question;
-  ans1.textContent = data[randomQuestion].answers[0];
-  ans2.textContent = data[randomQuestion].answers[1];
-  ans3.textContent = data[randomQuestion].answers[2];
+  questionTitle.textContent = questionData[questionCounter].question;
+  ans1.textContent = questionData[questionCounter].answers[0];
+  ans2.textContent = questionData[questionCounter].answers[1];
+  ans3.textContent = questionData[questionCounter].answers[2];
 }
 
 // Function to unabel of radio Button initially
@@ -64,7 +66,7 @@ function selectAnswer() {
   let answerSelected;
   answersOfQuestion.forEach((item) => {
     if (item.checked) {
-      answerSelected = "";
+      answerSelected = item.value;
     }
   });
   return answerSelected;
@@ -74,18 +76,15 @@ function selectAnswer() {
 nextBtn.addEventListener("click", (event) => {
   event.preventDefault();
   let answer = selectAnswer();
-  //console.log(answer);
-  //console.log(data[questionCounter].correctAnswer);
-  if (answer === data[questionCounter].correctAnswer) {
-    //console.log(answer)
+  console.log(answer);
+  console.log(questionData[questionCounter].correctAnswer);
+  if (answer === questionData[questionCounter].correctAnswer) {
     score++;
-    //console.log(`this ${score++}`);
   }
   questionCounter++;
   numberOfQuestion.textContent = `${questionCounter + 1}`;
 
-  if (questionCounter < data.length) {
-    // counterOfQuestion <10
+  if (questionCounter < questionData.length) {
     getQuestion();
   } else {
     quizAppPage.style.display = "none";
@@ -98,7 +97,6 @@ nextBtn.addEventListener("click", (event) => {
     leadBoard.push(Scores);
     localStorage.setItem("leaderBoard", JSON.stringify(leadBoard));
     console.log(Scores);
-
     displayLeaderboard();
   }
 });
@@ -110,6 +108,7 @@ function displayLeaderboard() {
     li.textContent = `${item.name} - ${item.score}`;
     console.log(li);
     scores.appendChild(li);
+    leadBoard.sort((a, b) => b.score - a.score);
   });
 }
 
